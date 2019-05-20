@@ -70,7 +70,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 Install nodemon and create-react-app globally using below command:
 
-`$ npm i -D nodemon`
+## Autocomplete Location Search :video_camera:
+![](google-maps.gif)
 
 `npm i -g create-react-app`# google-maps-in-react
 
