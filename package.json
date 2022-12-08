@@ -10,7 +10,7 @@
     "react-geocode": "^0.1.2",
     "react-google-autocomplete": "^1.1.0",
     "react-google-maps": "^9.4.5",
-    "react-router-dom": "^5.0.1",x
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
