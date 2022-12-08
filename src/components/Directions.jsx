@@ -1,6 +1,6 @@
 /* global google */
 import React from "react";
-import { Map, GoogleApiWrapper } from "TravelBud";
+import { Map, GoogleApiWrapper } from "google-maps-react";
 
 class MapContainer extends React.Component {
   constructor(props) {
