@@ -65,4 +65,55 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Google Maps in React: Autocomplete Location Search | Draggable Marker | Marker Infobox
+## Installation Instructions
+
+Install nodemon and create-react-app globally using below command:
+
+## Autocomplete Location Search :video_camera:
+![](google-maps.gif)
+
+`npm i -g create-react-app`# google-maps-in-react
+
+`npm cache clean --force` // in root dir
+
+`npm install`
+`cd client` // in client dir
+`npm cache clean --force`
+`npm install`
+
+
+## Installation Instructions :wrench:
+
+1. Clone the repo using `git clone https://github.com/imranhsayed/google-maps-in-react`
+2. `cd google-maps-in-react`
+3. `npm install`
+4. `cd client`
+5. `npm install`
+7. `cd ..`
+8. `npm run dev`
+
+## Built With :zap:
+
+1. Node
+2. Express
+3. React
+4. Create React App
+5. Google Maps API
+
+## Tutorial Videos :video_camera:
+
+* [Get API Key](https://www.youtube.com/watch?v=yhhkNtdg5x0&feature=youtu.be)
+* [Autocomplete Location Search | Draggable Marker Part 1](https://youtu.be/4z4hxEHlsxc)
+* [Autocomplete Location Search | Draggable Marker Part 2](https://youtu.be/xIYAV6IP4gA)
+
+## Useful Links :link:
+
+* [Autocomplete Location Search Blog](https://codeytek.com/google-maps-in-react-autocomplete-location-search-draggable-marker-marker-infobox/)
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
+

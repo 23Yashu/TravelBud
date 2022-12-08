@@ -13,7 +13,7 @@ class Home extends Component {
 	}
 
 	render() {
-		
+
 		// /** getPlace function **/ Get the place name to display youtube videos
 		const getPlace = (data) => {
 			this.setState({
@@ -30,7 +30,7 @@ class Home extends Component {
 					return getLatLong;
 				}
 			})
-			
+
 		}
 		const getRoute = () => {
 			if(this.state.mapSubmit===false) {
@@ -43,7 +43,7 @@ class Home extends Component {
 		}
 		}
 		return(
-			
+
 			<>
 				<Header />
 				<CarouselFade />
