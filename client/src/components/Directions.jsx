@@ -33,6 +33,18 @@ class MapContainer extends React.Component {
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
+        let total = 0;
+        const myroute = response.routes[0];
+        if (!myroute) {
+          return;
+        }
+        for (let i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000;
+        this.props.route(myroute)
+        this.props.dist(total)
+        // console.log(response.routes[0].legs[0].distance.text)
         directionsDisplay.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);

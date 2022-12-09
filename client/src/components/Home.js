@@ -3,13 +3,21 @@ import Map from './Map';
 import YtSearch from './YtSearch';
 import Directions from './Directions';
 import Header from './Header';
-import CarouselFade from './CarouselFade';
+import Itinerary from './Itinerary';
+import Calendar from './Calendar';
 class Home extends Component {
 
 	state= {
 		getPlace:'',
 		getLatLong: [],
-		mapSubmit: true
+		mapSubmit: false,
+		getDistance: 0,
+		getStops: [],
+		showItinerary: false,
+		getStartDate:0,
+		getEndDate:0,
+		getDays:0,
+		showCalendar: false
 	}
 
 	render() {
@@ -25,47 +33,99 @@ class Home extends Component {
 			latLong.map(l=>{
 				if(l !== undefined) {
 					this.setState({
-						getLatLong: [...this.state.getLatLong, {lat: l.lat, lng: l.lng}]
+						getLatLong: [...this.state.getLatLong, {lat: l.lat, lng: l.lng, address: l.address}]
 					})
 					return getLatLong;
 				}
+				return getLatLong;
 			})
-			
 		}
 		const getRoute = () => {
 			if(this.state.mapSubmit===false) {
+				this.setState({
+					mapSubmit: true
+				}) } else {
+				this.setState({
+					mapSubmit: false
+				})
+			}
+		}
+		const getItinerary = () => {
 			this.setState({
-				mapSubmit: true
-			}) } else {
-			this.setState({
-				mapSubmit: false
+				showItinerary: true,
+				showCalendar: false
 			})
 		}
+		const getStops = (data) => {
+			this.setState({
+				getStops: data
+			})
+		}
+		const getDistance = (data) => {
+			this.setState({
+				getDistance: data
+			})
+		}
+		const getStartDate = (data) => {
+			this.setState({
+				getStartDate: data
+			})
+		}
+		const getEndDate = (data) => {
+			this.setState({
+				getEndDate: data
+			})
+		}
+		const getDays = (data) => {
+			this.setState({
+				getDays: data
+			})
+		}
+		const getDates = () => {
+			this.setState({
+				showCalendar: true,
+				mapSubmit: false
+			})
 		}
 		return(
 			
 			<>
 				<Header />
-				<CarouselFade />
-				<div className='container'>
-				{this.state.mapSubmit===true?
+				<div className='container mt-5 overflow-hidden'>
+				{this.state.mapSubmit===false?
 				<>
+				{!this.state.showCalendar && !this.state.showItinerary &&
+				<div>
 					<Map
 						google={this.props.google}
 						center={{lat: 28.5021836, lng: 77.0916546}}
 						height='300px'
-						zoom={15}
+						zoom={12}
 						getPlace = {getPlace}
 						getLatLong = {getLatLong}
 					/>
-					<button className="btn btn-warning" onClick={getRoute}>Get Route</button>
+					{this.state.getLatLong.length>2 && <button className="btn btn-warning" onClick={getRoute}>Get Route</button>}
+					</div>
+				}
 				</>
 				:
+				
 				<>
-					<Directions center={{ lat: -24.9923319, lng: 135.2252427 }} zoom={4} data={this.state.getLatLong} />
-					<button className="btn btn-warning mt-2" onClick={getRoute}>Get Back</button>
+					<h4>Here is your Route!</h4>
+					<Directions center={{ lat: -24.9923319, lng: 135.2252427 }} zoom={4} data={this.state.getLatLong} dist={getDistance} route={getStops} />
+					<button className="btn btn-warning mt-2" onClick={getDates}>Lets select the Dates</button>
+				
 				</>}
-				<YtSearch getPlace = {this.state.getPlace.length>3 && this.state.getPlace} />
+				{this.state.showItinerary && 
+					<>
+					<Itinerary start={this.state.getStartDate} end={this.state.getEndDate} days={this.state.getDays} place={this.state.getPlace} info={this.state.getLatLong} dist={this.state.getDistance} stops={this.state.getStops}/>
+					<YtSearch getPlace = {this.state.getPlace.length>2 && this.state.getPlace} />
+					</>
+				}
+				{this.state.showCalendar && <div className='text-center bg-dark pb-2'>
+				<Calendar start={getStartDate} end={getEndDate} days={getDays} />
+				{!this.state.showItinerary && <button className="btn btn-warning mt-2" onClick={getItinerary}>Get your Itinerary</button>}
+				</div>}
 				</div>
 			</>
 		);

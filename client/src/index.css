@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background  : url(./0.jpeg) 0 0 / cover;
+  color: #fff;
 }
 
 .App {
@@ -15,10 +17,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.yvideo {
+  flex: 1;
+}
 .header {
   z-index: 4;
-    width: 100%;
+  width: 100%;
+  background-color: rgb(0 0 0 / 50%);
 }
 .wid-300 {
   height: 300px;
@@ -36,10 +41,26 @@ p>button.btn.btn-danger {
 }
 .searcher {
   position: absolute;
-  top: 300px;
+  top: 150px;
   left: 50%;
   transform: translate(-50%);
   z-index: 4;
   width: 300px !important;
   border-radius: 20px;
+}
+.bg-dark {
+  background-color: rgb(0 0 0 / 50%) !important;
+}
+.map-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  color: #000;
+}
+.video-wrapper {
+  flex-direction: row;
+}
+li.card.bg-white.p-2.list-group-item.mb-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
 import { GoogleMapsAPI } from '../client-config';
+import marker from '../marker.png';
+import marker1 from '../marker1.png';
 Geocode.setApiKey( GoogleMapsAPI );
 Geocode.enableDebug();
 class Map extends Component{
@@ -37,9 +39,14 @@ class Map extends Component{
     addSelectedLocation(){
       this.setState({
         selectedLocations: [...this.state.selectedLocations, {'address': this.state.address, 'lat': this.state.markerPosition.lat, 'lng': this.state.markerPosition.lng} ]
+      },() => {
+        this.out()
       })
-      this.out()
+      
     }
+    out = () => {
+        this.props.getLatLong(this.state.selectedLocations);
+    };
     removeSelectedLocation(index){
         this.setState({
             selectedLocations: this.state.selectedLocations.filter((_, i) => i !== index)
@@ -159,10 +166,6 @@ class Map extends Component{
             },
         })
     };
-    out = () => {
-        console.log(this.state.selectedLocations);
-        this.props.getLatLong(this.state.selectedLocations);
-    };
     render(){
         const AsyncMap = withScriptjs(
             withGoogleMap(
@@ -173,20 +176,21 @@ class Map extends Component{
                                 defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
                         >
                             {/* InfoWindow on top of marker */}
-                            <InfoWindow
+                            {/* <InfoWindow
                                 onClose={this.onInfoWindowClose}
                                 position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}
                             >
                                 <div>
                                     <span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>
                                 </div>
-                            </InfoWindow>
+                            </InfoWindow> */}
                             {/*Marker*/}
-                            <Marker google={this.props.google}
-                                    name={'Dolores park'}
-                                    draggable={true}
+                            <Marker google={ this.props.google }
+                                    name={ 'Dolores park' }
+                                    draggable={ true }
                                     onDragEnd={ this.onMarkerDragEnd }
                                     position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+                                    icon={{ url: marker1 }}
                             />
                             {/* <Marker /> */}
                                     {this.state.selectedLocations.map((item,index)=>{
@@ -195,6 +199,8 @@ class Map extends Component{
                                                         draggable={true}
                                                         onDragEnd={ this.onMarkerDragEnd }
                                                         position={{ lat: item.lat, lng: item.lng }}
+                                                        icon={{ url: marker }}
+                                                        key={index}
                                                 />
                                     })}
                             {/* For Auto complete Search Box */}
@@ -208,6 +214,7 @@ class Map extends Component{
                                 className="searcher form-control"
                                 onPlaceSelected={ this.onPlaceSelected }
                                 types={['(regions)']}
+                                placeholder="Enter a location to explore"
                             />
                         </GoogleMap>
                         <React.Fragment>
@@ -219,35 +226,41 @@ class Map extends Component{
         let map;
         if( this.props.center.lat !== undefined ) {
             map = <div>
-                <div>
-                    <div className="form-group">
-                        <label htmlFor="">Address</label>
-                        <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
-                        <br></br>
-                        <div>
-                            <button className="btn btn-success" onClick={this.addSelectedLocation}>Click To Mark Location</button>
-                        </div>
-                    </div>
-                </div>
                 <AsyncMap
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
                     loadingElement={
                         <div style={{ height: `100%` }} />
                     }
                     containerElement={
-                        <div style={{ height: this.props.height }} />
+                        <div style={{ height: this.props.height }} className = "map-wrapper mt-5 overflow-hidden"/>
                     }
                     mapElement={
                         <div style={{ height: `100%` }} />
                     }
                 />
                 <br></br>
-                {
-                    this.state.selectedLocations.map((item,index)=>{
-                        return <p>{item.address} <button className="btn btn-danger" onClick={() => {
-                            this.removeSelectedLocation(index)
-                        }}>remove</button></p>
-                    })
+                <div>
+                    <div className="form-group">
+                        {/* <label htmlFor="">Address</label>
+                        <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
+                        <br></br> */}
+                        <div>
+                            <button className="btn btn-success" onClick={this.addSelectedLocation}>Click To Mark Location</button>
+                        </div>
+                    </div>
+                </div>
+                <br></br>
+                {this.state.selectedLocations.length>0 && <div className='card p-4 bg-dark'>
+                    {
+                        this.state.selectedLocations.map((item,index)=>{
+                            return <p key={index}>{item.address} 
+                                        <button className="btn btn-danger" onClick={() => {
+                                            this.removeSelectedLocation(index)
+                                        }}>remove</button>
+                                    </p>
+                        })
+                    }
+                    </div>
                 }
             </div>
         } else {
