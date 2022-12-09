@@ -17,7 +17,8 @@ class Home extends Component {
 		getStartDate:0,
 		getEndDate:0,
 		getDays:0,
-		showCalendar: false
+		showCalendar: false,
+		getFlag: false
 	}
 
 	render() {
@@ -51,6 +52,7 @@ class Home extends Component {
 			}
 		}
 		const getItinerary = () => {
+			window.alert("Make sure You have applied for leaves! 😉")
 			this.setState({
 				showItinerary: true,
 				showCalendar: false
@@ -81,6 +83,11 @@ class Home extends Component {
 				getDays: data
 			})
 		}
+		const getFlag = (data) => {
+			this.setState({
+				getFlag: data
+			})
+		}
 		const getDates = () => {
 			this.setState({
 				showCalendar: true,
@@ -104,7 +111,7 @@ class Home extends Component {
 						getPlace = {getPlace}
 						getLatLong = {getLatLong}
 					/>
-					{this.state.getLatLong.length>2 && <button className="btn btn-warning" onClick={getRoute}>Get Route</button>}
+					{this.state.getLatLong.length>2 && <button className="btn btn-warning mt-4" onClick={getRoute}>Get Route</button>}
 					</div>
 				}
 				</>
@@ -112,7 +119,7 @@ class Home extends Component {
 				
 				<>
 					<h4>Here is your Route!</h4>
-					<Directions center={{ lat: -24.9923319, lng: 135.2252427 }} zoom={4} data={this.state.getLatLong} dist={getDistance} route={getStops} />
+					<Directions center={{ lat: 28.5021836, lng: 77.0916546 }} zoom={4} data={this.state.getLatLong} dist={getDistance} route={getStops} />
 					<button className="btn btn-warning mt-2" onClick={getDates}>Lets select the Dates</button>
 				
 				</>}
@@ -123,8 +130,8 @@ class Home extends Component {
 					</>
 				}
 				{this.state.showCalendar && <div className='text-center bg-dark pb-2'>
-				<Calendar start={getStartDate} end={getEndDate} days={getDays} />
-				{!this.state.showItinerary && <button className="btn btn-warning mt-2" onClick={getItinerary}>Get your Itinerary</button>}
+				<Calendar start={getStartDate} end={getEndDate} days={getDays} flag={getFlag} />
+				{!this.state.showItinerary && this.state.getFlag && <button className="btn btn-warning mt-2" onClick={getItinerary}>Get your Itinerary</button>}
 				</div>}
 				</div>
 			</>

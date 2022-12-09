@@ -19,7 +19,7 @@ const YtSearch = ({getPlace}) => {
     <>
       <br />
       <br />
-      <h4>Hey Buddy! Dont forget to checkout {getPlace ? getPlace : `Haryana` } vlogs before you travel. Here are a few for you!</h4>
+      <h4 className='bg-dark p-4'>Hey Buddy! Dont forget to checkout {getPlace ? getPlace : `Haryana` } vlogs before you travel. Here are a few for you!</h4>
       <div className="video-wrapper d-flex justify-content-around text-center card p-4 bg-dark">
       {videoData &&
         videoData.map((data, index) => (

@@ -240,12 +240,13 @@ class Map extends Component{
                 />
                 <br></br>
                 <div>
-                    <div className="form-group">
+                    <div className="form-group clearfix">
                         {/* <label htmlFor="">Address</label>
                         <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
                         <br></br> */}
                         <div>
-                            <button className="btn btn-success" onClick={this.addSelectedLocation}>Click To Mark Location</button>
+                            <button className="btn btn-success float-left" onClick={this.addSelectedLocation}>Click To Mark Location</button>
+                            <h6 className='bg-warning text-dark p-2 float-right fst-italic'>Start with your source location and select atleast 3 points</h6>
                         </div>
                     </div>
                 </div>
