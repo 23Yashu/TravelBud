@@ -1,14 +1,16 @@
 import React from 'react';
+import DownloadPdf from './DownloadPdf';
 
-const Itinerary = ({info, place, dist, stops, start, end, days}) => {
+const Itinerary = ({info, place, dist, stops, start, end, days, temp}) => {
     return (
         <div className="info-wrapper card p-4 bg-dark">
             {place ?
-                <h3 className='border-bottom mb-4'>Great! So You have decided a trip of <span className='text-warning'>{dist}</span> kms to <span className='text-warning'>{info.length}</span> places in <span className='text-success'>{place}</span> for <span className='text-warning'>{days}</span> Days!</h3>:
+                <h3 className='border-bottom mb-4'>Great! So You have decided a trip of <span className='text-warning'>{dist}</span> kms to <span className='text-warning'>{info.length}</span> places in <span className='text-success'>{place}</span> for <span className='text-warning'>{days}</span> Days! <span className='itemp'> {temp}°C</span></h3>:
                 <h3 className='border-bottom mb-4'>Ohk! So You have decided a trip of <span className='text-warning'>{dist}</span> kms to <span className='text-warning'>{info.length}</span> places nearby for <span className='text-warning'>{days}</span> Days!</h3>
             }
-            <h4 className='mb-3'>Here is your Itinerary from <span className='text-warning'>{start}</span> to <span className='text-warning'>{end}</span>...</h4>
-            <div className="d-flex">
+            <h4 className='mb-3'>Here is your Itinerary from <span className='text-warning'>{start}</span> to <span className='text-warning'>{end}</span>...<DownloadPdf rooElementId="downloadThis" downloadFileName="travelbud-itinerary" /></h4>
+            
+            <div className="d-flex" id="downloadThis">
                 <ul className='list-group list-group-numbered col-9 col-sm-10'>
                 {info.map((item,index)=>{
                     return <li key={index} className="card bg-white p-2 list-group-item mb-2">{item.address}</li>

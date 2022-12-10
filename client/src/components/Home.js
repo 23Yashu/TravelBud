@@ -88,6 +88,11 @@ class Home extends Component {
 				getFlag: data
 			})
 		}
+		const getTemperature = (data) => {
+			this.setState({
+				getTemperature: data
+			})
+		}
 		const getDates = () => {
 			this.setState({
 				showCalendar: true,
@@ -98,7 +103,7 @@ class Home extends Component {
 			
 			<>
 				<Header />
-				<div className='container mt-5 overflow-hidden'>
+				<div className='main-wrapper container mt-5 overflow-hidden'>
 				{this.state.mapSubmit===false?
 				<>
 				{!this.state.showCalendar && !this.state.showItinerary &&
@@ -110,6 +115,7 @@ class Home extends Component {
 						zoom={12}
 						getPlace = {getPlace}
 						getLatLong = {getLatLong}
+						getTemperature = {getTemperature}
 					/>
 					{this.state.getLatLong.length>2 && <button className="btn btn-warning mt-4" onClick={getRoute}>Get Route</button>}
 					</div>
@@ -125,7 +131,7 @@ class Home extends Component {
 				</>}
 				{this.state.showItinerary && 
 					<>
-					<Itinerary start={this.state.getStartDate} end={this.state.getEndDate} days={this.state.getDays} place={this.state.getPlace} info={this.state.getLatLong} dist={this.state.getDistance} stops={this.state.getStops}/>
+					<Itinerary temp = {this.state.getTemperature} start={this.state.getStartDate} end={this.state.getEndDate} days={this.state.getDays} place={this.state.getPlace} info={this.state.getLatLong} dist={this.state.getDistance} stops={this.state.getStops}/>
 					<YtSearch getPlace = {this.state.getPlace.length>2 && this.state.getPlace} />
 					</>
 				}

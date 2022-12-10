@@ -20,7 +20,8 @@ class Map extends Component{
                 lat: this.props.center.lat,
                 lng: this.props.center.lng
             },
-            selectedLocations: []
+            selectedLocations: [],
+            temperature: ''
         }
         this.addSelectedLocation = this.addSelectedLocation.bind(this)
         this.removeSelectedLocation = this.removeSelectedLocation.bind(this)
@@ -46,6 +47,7 @@ class Map extends Component{
     }
     out = () => {
         this.props.getLatLong(this.state.selectedLocations);
+        this.props.getTemperature(this.state.temperature);
     };
     removeSelectedLocation(index){
         this.setState({
@@ -152,6 +154,11 @@ class Map extends Component{
         const address = place.formatted_address,
         latValue = place.geometry.location.lat(),
         lngValue = place.geometry.location.lng();
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latValue}&longitude=${lngValue}&current_weather=true&timezone=IST`)
+        .then(res => res.json())
+        .then(result => {
+            this.setState({temperature: result.current_weather.temperature})
+        });
         // Set these values in the state.
         this.props.getPlace(address.split(',')[0]);
         this.setState({
@@ -163,14 +170,14 @@ class Map extends Component{
             mapPosition: {
                 lat: latValue,
                 lng: lngValue
-            },
+            }
         })
     };
     render(){
         const AsyncMap = withScriptjs(
             withGoogleMap(
                 props => (
-                    <React.Fragment>
+                    <>
                         <GoogleMap google={ this.props.google }
                                 defaultZoom={ this.props.zoom }
                                 defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
@@ -217,29 +224,28 @@ class Map extends Component{
                                 placeholder="Enter a location to explore"
                             />
                         </GoogleMap>
-                        <React.Fragment>
-                        </React.Fragment>
-                    </React.Fragment>
+                    </>
                 )
             )
         );
         let map;
         if( this.props.center.lat !== undefined ) {
-            map = <div>
+            map = <>
+                {this.state.temperature && <h3 className='temperature text-white fw-bold'>{this.state.address} - {this.state.temperature}°C</h3>}
                 <AsyncMap
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
                     loadingElement={
                         <div style={{ height: `100%` }} />
                     }
                     containerElement={
-                        <div style={{ height: this.props.height }} className = "map-wrapper mt-5 overflow-hidden"/>
+                        <div style={{ height: this.props.height }} className="map-wrapper mt-5 overflow-hidden"/>
                     }
                     mapElement={
                         <div style={{ height: `100%` }} />
                     }
                 />
                 <br></br>
-                <div>
+                <>
                     <div className="form-group clearfix">
                         {/* <label htmlFor="">Address</label>
                         <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
@@ -249,7 +255,7 @@ class Map extends Component{
                             <h6 className='bg-warning text-dark p-2 float-right fst-italic'>Start with your source location and select atleast 3 points</h6>
                         </div>
                     </div>
-                </div>
+                </>
                 <br></br>
                 {this.state.selectedLocations.length>0 && <div className='card p-4 bg-dark'>
                     {
@@ -263,7 +269,7 @@ class Map extends Component{
                     }
                     </div>
                 }
-            </div>
+            </>
         } else {
             map = <div style={{height: this.props.height}} />
         }
