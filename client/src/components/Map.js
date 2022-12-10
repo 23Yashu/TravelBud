@@ -21,7 +21,8 @@ class Map extends Component{
                 lng: this.props.center.lng
             },
             selectedLocations: [],
-            temperature: ''
+            temperature: [],
+            forecast:''
         }
         this.addSelectedLocation = this.addSelectedLocation.bind(this)
         this.removeSelectedLocation = this.removeSelectedLocation.bind(this)
@@ -154,10 +155,24 @@ class Map extends Component{
         const address = place.formatted_address,
         latValue = place.geometry.location.lat(),
         lngValue = place.geometry.location.lng();
+		const weather = {
+			0: "Clear Sky",
+			1: "Cloudy",
+			2: "Gloomy",
+			3: "Clear Sky",
+			4: "Mist",
+			5: "Drizzle",
+			6: "Rain",
+			7: "Snow",
+			8: "Passing showers",
+			9: "Thunderstorm"
+		}
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latValue}&longitude=${lngValue}&current_weather=true&timezone=IST`)
         .then(res => res.json())
         .then(result => {
-            this.setState({temperature: result.current_weather.temperature})
+            console.log(result.current_weather.weathercode)
+            this.setState({temperature: [result.current_weather.temperature, result.current_weather.weathercode ]})
+            this.setState({forecast: weather[result.current_weather.weathercode]})
         });
         // Set these values in the state.
         this.props.getPlace(address.split(',')[0]);
@@ -231,7 +246,7 @@ class Map extends Component{
         let map;
         if( this.props.center.lat !== undefined ) {
             map = <>
-                {this.state.temperature && <h3 className='temperature text-white fw-bold'>{this.state.address} - {this.state.temperature}°C</h3>}
+                {this.state.temperature[0] && <h3 className='temperature text-white fw-bold'>{this.state.address.split(',')[0]} - {this.state.temperature[0]}°C - {this.state.forecast}</h3>}
                 <AsyncMap
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GoogleMapsAPI}&libraries=places`}
                     loadingElement={
