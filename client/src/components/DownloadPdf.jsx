@@ -13,7 +13,7 @@ const DownloadPdf = ({rooElementId, downloadFileName}) => {
             pdf.save(`${downloadFileName}`);
         });
     };
-    return ( <img src={pdf} className="pdfIcon" onClick={downloadFileDocument} /> );
+    return ( <div className="pdfIcon"><img src={pdf} onClick={downloadFileDocument} /><h6>Download</h6></div> );
 }
  
 export default DownloadPdf;

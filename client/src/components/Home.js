@@ -5,6 +5,13 @@ import Directions from './Directions';
 import Header from './Header';
 import Itinerary from './Itinerary';
 import Calendar from './Calendar';
+import agra from '../agra.jpeg';
+import delhi from '../delhi.jpeg';
+import kerala from '../kerala.jpeg';
+import mumbai from '../mumbai.jpeg';
+import sikkim from '../sikkim.jpeg';
+import goa from '../goa.jpeg';
+import manali from '../manali.jpeg';
 class Home extends Component {
 
 	state= {
@@ -99,9 +106,15 @@ class Home extends Component {
 				mapSubmit: false
 			})
 		}
+		
+		// const myStyle= {
+		// 	backgroundImage: `url(${kerala})`
+		// }
+		// const setBodyColor = () => {
+		// 	document.body.style.setProperty('--bodyColor', color)
+		// }
 		return(
-			
-			<>
+			<div className='main-wrapper'>
 				<Header />
 				<div className='main-wrapper container mt-5 overflow-hidden'>
 				{this.state.mapSubmit===false?
@@ -112,7 +125,7 @@ class Home extends Component {
 						google={this.props.google}
 						center={{lat: 28.5021836, lng: 77.0916546}}
 						height='300px'
-						zoom={12}
+						zoom={15}
 						getPlace = {getPlace}
 						getLatLong = {getLatLong}
 						getTemperature = {getTemperature}
@@ -140,7 +153,7 @@ class Home extends Component {
 				{!this.state.showItinerary && this.state.getFlag && <button className="btn btn-warning mt-2" onClick={getItinerary}>Get your Itinerary</button>}
 				</div>}
 				</div>
-			</>
+			</div>
 		);
 	}
 }

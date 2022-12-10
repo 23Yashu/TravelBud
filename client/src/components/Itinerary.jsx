@@ -35,7 +35,7 @@ const Itinerary = ({info, place, dist, stops, start, end, days, temp}) => {
                 })}
                 </ul>
             </div>
-            <h3 className='text-center mt-4'>Happy Journey!<span role="img" aria-label="emoji">😘</span></h3>
+            <h3 className='text-center mt-4'>Work hard<span role="img" aria-label="emoji">💪🏻</span>, Travel harder!<span role="img" aria-label="emoji">🚗</span> Happy Journey!<span role="img" aria-label="emoji">😘</span></h3>
         </div>
     );
 }

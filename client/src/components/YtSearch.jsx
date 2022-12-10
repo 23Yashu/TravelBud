@@ -6,7 +6,7 @@ const YtSearch = ({getPlace}) => {
   useEffect(()=>{
     const func = async() =>{
         fetch(
-            `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${getPlace ? getPlace : 'Haryana' }vlog&type=video&key=${APIKey}`
+            `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${getPlace ? getPlace : 'Haryana' }+travel+vlogs&type=video&key=${APIKey}`
           )
             .then((response) => response.json())
             .then((data) => {

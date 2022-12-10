@@ -5,18 +5,36 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background  : url(./0.jpeg) 0 0 / cover;
+  background  : url(./0.jpeg) 0 0 / cover no-repeat #0c110d;
   color: #fff;
 }
-
+.chat {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  border: 0;
+  background: #ffc107;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  color: #fff;
+  border: 5px solid white;
+}
 .App {
   margin-bottom: 500px;
 }
 .pdfIcon {
-  width: 30px;
-  height: 42px;
   float: right;
   cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}
+.pdfIcon img {
+  width: 30px;
+  height: 42px;
+}
+.header a {
+  text-decoration: none;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
