@@ -3,16 +3,16 @@ import DownloadPdf from './DownloadPdf';
 
 const Itinerary = ({info, place, dist, stops, start, end, days, temp}) => {
     const weather = {
-        0: "Clear Sky",
-        1: "Cloudy",
-        2: "Gloomy",
+        0: "Clear Sky 🌞",
+        1: "Cloudy ☁️",
+        2: "Gloomy ⛅️",
         3: "Clear Sky",
-        4: "Mist",
-        5: "Drizzle",
-        6: "Rain",
-        7: "Snow",
-        8: "Passing showers",
-        9: "Thunderstorm"
+        4: "Mist 🌫",
+        5: "Drizzle 🌦",
+        6: "Rain ⛈",
+        7: "Snow ❄️",
+        8: "Passing showers 🌧",
+        9: "Thunderstorm 🌩"
     }
     return (
         <div className="info-wrapper card p-4 bg-dark">
